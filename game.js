@@ -18,22 +18,29 @@ const frames = [
 //  [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 0], [10, 10, 10],
 // ]
 
-function scoreAFrame (frame) {
-  return frame[0] + frame[1]
-}
-function scoreASpare (frame) {
-  const rawScore = scoreAFrame(frame)
-  const total = rawScore + 
-}
-
 function framesSum (framesArray) {
   var sum = 0
   for (let i = 0; i < framesArray.length; i++) {
     sum += framesArray[i]
-  }
-  return sum
+  } return sum
   // console.log(sum)
 }
+
+function scoreAFrame (frame) {
+  return frame[0] + frame[1]
+}
+function scoreASpare (frame, nextFrame) {
+  const rawScore = scoreAFrame(frame)
+  const total = rawScore + nextFrame[0]
+  return total
+}
+
+function scoreAStrike (frame, nextFrame) {
+  const rawScore = scoreAFrame(frame)
+  const total = rawScore + scoreAFrame(nextFrame)
+  return total
+}
+
 
 function addAllFrames (frames) {
   const framesArray = frames.map(frame => scoreAFrame(frame))
@@ -42,14 +49,23 @@ function addAllFrames (frames) {
 }
 
 const scoreGame = (frames) => {
-  frames.map((frame) => {
-    if (frame[0] === 10) {
+const strikes = 0
+const spares = 0
+const normalFrames = 0
 
-    } else if (frame === 10) {
-      scoreASpare(frame)
+  for (let i = 0; i < frames.length; i++) {
+    if (frames[i][0] === 10) {
+      console.log(frames[i][0])
+      return strikes += scoreAStrike(frames[i], frames[i + 1])
+    } else if (scoreAFrame(frames[i]) === 10) {
+      return spares += scoreASpare(frames[i], frames[i + 1])
     } else {
+      return normalFrames += scoreAFrame(frames[i])
+    }
+  }
 
-    })
+ 
+   
 }
 
 addAllFrames(frames)
